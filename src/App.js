@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import "./App.css";
 import Features from "./Features";
-import Summary from "./Summary";
+import Cart from "./Cart";
+import Header from "./Header";
+
+import featuresList from "./featuresList.json";
 
 class App extends Component {
   constructor(props) {
@@ -37,33 +40,28 @@ class App extends Component {
   };
 
   render() {
-    const features = Object.keys(this.props.features).map((key) => {
+    const features = Object.keys(featuresList).map((key) => {
       console.log(key);
 
       return (
         <Features
           part={key}
           onUpdate={this.updateFeature}
-          choices={this.props.features[key]}
+          choices={featuresList[key]}
           selected={this.state.selected[key]}
         />
       );
     });
 
-    const summary = <Summary selected={this.state.selected} />;
-
     return (
       <div className="App">
-        <header>
-          <h1>ELF Computing | Laptops</h1>
-          <h2>Customize your laptop</h2>
-        </header>
+        <Header />
         <main>
           <section className="main-form">
             <h3>TECH SPECS AND CUSTOMIZATIONS</h3>
             {features}
           </section>
-          {summary}
+          <Cart selected={this.state.selected} />
         </main>
       </div>
     );
